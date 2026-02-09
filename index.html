@@ -213,6 +213,35 @@
             color: #4a90e2;
         }
         
+        /* GitHub和B站按钮特殊样式 */
+        .github-btn {
+            background: linear-gradient(135deg, #333 0%, #24292e 100%) !important;
+            border: 1px solid rgba(255,255,255,0.2) !important;
+        }
+        
+        .github-btn:hover {
+            background: linear-gradient(135deg, #444 0%, #333 100%) !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3) !important;
+        }
+        
+        .github-btn::after {
+            background: linear-gradient(90deg, #f05033, #4078c0) !important;
+        }
+        
+        .bilibili-btn {
+            background: linear-gradient(135deg, #fb7299 0%, #f25d8e 100%) !important;
+            border: 1px solid rgba(255,255,255,0.2) !important;
+        }
+        
+        .bilibili-btn:hover {
+            background: linear-gradient(135deg, #ff85ad 0%, #fb7299 100%) !important;
+            box-shadow: 0 5px 15px rgba(251, 114, 153, 0.3) !important;
+        }
+        
+        .bilibili-btn::after {
+            background: linear-gradient(90deg, #00a1d6, #fb7299) !important;
+        }
+        
         /* 主要内容区域 */
         .container {
             max-width: 1000px;
@@ -584,9 +613,16 @@
     <nav>
         <div class="nav-container">
             <a href="#intro" class="active"><i class="fas fa-info-circle"></i>作品简介</a>
-            <a href="#characters"><i class="fas fa-user-friends"></i>主要角色</a>
+            <a href="#characters"><i class="fas fa-user-friends"></i>重要角色</a>
             <a href="#features"><i class="fas fa-star"></i>作品特色</a>
             <a href="#author"><i class="fas fa-pen-nib"></i>作者的话</a>
+            <!-- 添加的GitHub和B站按钮 -->
+            <a href="https://github.com/NoMoreLonelyBoat" target="_blank" class="github-btn">
+                <i class="fab fa-github"></i>GitHub
+            </a>
+            <a href="https://space.bilibili.com/3546932473498063?spm_id_from=333.1007.0.0" target="_blank" class="bilibili-btn">
+                <i class="fas fa-video"></i>Bilibili
+            </a>
         </div>
     </nav>
     
