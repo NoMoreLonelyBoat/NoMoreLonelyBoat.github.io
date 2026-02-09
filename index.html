@@ -724,13 +724,16 @@
         </div>
     </footer>
     
-    <script>
-        // 平滑滚动导航
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+<script>
+    // 平滑滚动导航 - 只对页面内锚点链接生效
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            // 如果是页面内锚点链接（以#开头），则平滑滚动
+            if (href.startsWith('#')) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+                const targetElement = document.querySelector(href);
                 
                 // 移除所有active类
                 document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
@@ -741,67 +744,80 @@
                     top: targetElement.offsetTop - 90,
                     behavior: 'smooth'
                 });
-            });
+            }
+            // 如果是外部链接（GitHub、B站等），则正常跳转，不做处理
+        });
+    });
+    
+    // 滚动时高亮当前部分
+    window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('nav a');
+        
+        let currentSectionId = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 120;
+            const sectionHeight = section.clientHeight;
+            
+            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                currentSectionId = '#' + section.id;
+            }
         });
         
-        // 滚动时高亮当前部分
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('.content-section');
-            const navLinks = document.querySelectorAll('nav a');
-            
-            let currentSectionId = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 120;
-                const sectionHeight = section.clientHeight;
-                
-                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                    currentSectionId = '#' + section.id;
-                }
-            });
-            
-            navLinks.forEach(link => {
+        navLinks.forEach(link => {
+            // 只对页面内锚点链接设置active状态
+            if (link.getAttribute('href').startsWith('#')) {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === currentSectionId) {
                     link.classList.add('active');
                 }
-            });
-            
-            // 更新滚动进度条
-            updateProgressBar();
+            }
         });
         
-        // 页面加载动画
-        document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
-            
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-            
-            // 初始化滚动进度条
-            updateProgressBar();
-        });
+        // 更新滚动进度条
+        updateProgressBar();
+    });
+    
+    // 页面加载动画
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
         
-        // 滚动进度条功能
-        function updateProgressBar() {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById("progressBar").style.width = scrolled + "%";
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+        
+        // 初始化滚动进度条
+        updateProgressBar();
+        
+        // 设置初始active状态
+        const currentHash = window.location.hash;
+        if (currentHash) {
+            document.querySelector(`nav a[href="${currentHash}"]`)?.classList.add('active');
+        } else {
+            document.querySelector('nav a[href="#intro"]')?.classList.add('active');
         }
-        
-        // 卡片悬停效果增强
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-8px) scale(1.005)';
-            });
-            
-            section.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
+    });
+    
+    // 滚动进度条功能
+    function updateProgressBar() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progressBar").style.width = scrolled + "%";
+    }
+    
+    // 卡片悬停效果增强
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.005)';
         });
-    </script>
+        
+        section.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+</script>
 </body>
 </html>
