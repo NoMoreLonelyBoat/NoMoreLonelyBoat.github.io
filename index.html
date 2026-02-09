@@ -1,14 +1,320 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>我的第一个网站</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>guyingxz | 个人网站</title>
+    <meta name="description" content="欢迎访问 guyingxz 的网站，这里将分享我的作品、经验和思考。">
+    
+    <!-- Open Graph 社交分享优化 -->
+    <meta property="og:title" content="guyingxz | 个人网站">
+    <meta property="og:description" content="欢迎访问我的个人网站">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://guyingxz.de5.net">
+    
+    <!-- 样式 -->
     <style>
-        body { font-family: Arial; text-align: center; padding: 50px; }
-        h1 { color: #333; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #4b6cb7, #182848);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .main-content {
+            text-align: center;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+        
+        .welcome-text {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .feature {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #4b6cb7;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .feature p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, #4b6cb7, #182848);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(75, 108, 183, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: #4b6cb7;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #182848;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+                margin-top: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
 </head>
 <body>
-    <h1>🎉 欢迎来到我的网站！</h1>
-    <p>域名绑定后，这里将显示我的精彩内容。</p>
+    <div class="container">
+        <header>
+            <div class="logo">guyingxz</div>
+            <div class="tagline">探索 · 创造 · 分享</div>
+        </header>
+        
+        <main class="main-content">
+            <div class="status-badge">🚀 网站已成功上线</div>
+            
+            <h1>欢迎来到我的创意空间！</h1>
+            
+            <div class="welcome-text">
+                <p>很高兴你能来到这里！这是我的个人网站，记录我的学习旅程、项目经验和思考感悟。</p>
+                <p>目前网站还在持续建设中，更多精彩内容即将呈现...</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <h3>📚 学习笔记</h3>
+                    <p>分享我在技术、设计、产品等领域的学习心得和实践经验</p>
+                </div>
+                <div class="feature">
+                    <h3>💼 项目作品</h3>
+                    <p>展示我的个人项目和创意实现，记录每个项目的成长过程</p>
+                </div>
+                <div class="feature">
+                    <h3>🤔 思考感悟</h3>
+                    <p>记录生活中的观察、思考和感悟，与你一同成长</p>
+                </div>
+            </div>
+            
+            <button class="cta-button" id="subscribeBtn">
+                订阅更新提醒
+            </button>
+            
+            <p style="margin-top: 20px; color: #666; font-size: 0.9rem;">
+                点击上方按钮，第一时间获取网站更新通知
+            </p>
+        </main>
+        
+        <footer>
+            <div class="social-links">
+                <a href="#" onclick="comingSoon('GitHub')">GitHub</a>
+                •
+                <a href="#" onclick="comingSoon('博客')">博客</a>
+                •
+                <a href="#" onclick="comingSoon('作品集')">作品集</a>
+                •
+                <a href="mailto:你的邮箱@example.com" id="emailLink">联系我</a>
+            </div>
+            <p>© 2024 guyingxz. 由 GitHub Pages 强力驱动</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">
+                最后更新: <span id="currentDate"></span> | 
+                <a href="#" onclick="showSiteInfo()">网站信息</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // 显示当前日期
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('zh-CN');
+        
+        // 订阅按钮交互
+        document.getElementById('subscribeBtn').addEventListener('click', function() {
+            const email = prompt('请输入您的邮箱地址，有新内容时会通知您：');
+            if (email) {
+                alert('感谢订阅！我们会通过 ' + email + ' 通知您最新动态。');
+                this.textContent = '已订阅 ✓';
+                this.style.background = '#4CAF50';
+                this.disabled = true;
+            }
+        });
+        
+        // 联系邮箱设置
+        document.getElementById('emailLink').addEventListener('click', function(e) {
+            if (this.getAttribute('href') === 'mailto:你的邮箱@example.com') {
+                e.preventDefault();
+                const email = prompt('请设置您的联系邮箱：');
+                if (email && email.includes('@')) {
+                    this.setAttribute('href', 'mailto:' + email);
+                    alert('邮箱已设置为: ' + email);
+                    this.click(); // 重新触发点击
+                } else {
+                    alert('请输入有效的邮箱地址');
+                }
+            }
+        });
+        
+        // 功能开发中提示
+        function comingSoon(feature) {
+            alert('🎯 ' + feature + ' 功能正在开发中，敬请期待！');
+            return false;
+        }
+        
+        // 显示网站信息
+        function showSiteInfo() {
+            alert(
+                '🏗️ 网站技术栈：\n' +
+                '• 托管：GitHub Pages\n' +
+                '• 域名：guyingxz.de5.net\n' +
+                '• CDN：Cloudflare\n' +
+                '• SSL：已启用\n' +
+                '\n📊 状态：正常运行中\n' +
+                '🚀 下一步：添加更多内容！'
+            );
+            return false;
+        }
+        
+        // 控制台欢迎信息
+        console.log('%c 🚀 欢迎访问 guyingxz.de5.net！', 'color: #4b6cb7; font-size: 16px; font-weight: bold;');
+        console.log('%c 💡 网站正在持续建设中...', 'color: #666;');
+    </script>
 </body>
 </html>
