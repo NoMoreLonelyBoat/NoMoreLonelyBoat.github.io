@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>《起三公司的日常》- 轻松幽默的职场故事</title>
+    <title>这里是《起三公司的日常》的官方网站</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -14,6 +14,8 @@
             --light-color: #f5f5f5;
             --text-color: #333;
             --text-light: #777;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --card-shadow-hover: 0 15px 40px rgba(0,0,0,0.12);
         }
         
         * {
@@ -24,20 +26,38 @@
         
         body {
             font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
-            line-height: 1.6;
+            line-height: 1.7;
             color: var(--text-color);
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
             min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(74, 144, 226, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.05) 0%, transparent 20%);
+            z-index: -1;
         }
         
         /* 顶部区域 */
         header {
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            background: linear-gradient(135deg, 
+                var(--secondary-color) 0%, 
+                var(--primary-color) 50%, 
+                #5a9de6 100%);
             color: white;
-            padding: 80px 20px 60px;
+            padding: 100px 20px 70px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
         }
         
         header::before {
@@ -47,47 +67,89 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.08)"/></svg>');
+            background-size: 300% 300%, cover;
+            animation: shimmer 15s infinite linear;
+            z-index: 1;
         }
         
         .header-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
         h1 {
-            font-size: 3.2rem;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.2);
             animation: fadeInDown 1s ease-out;
+            letter-spacing: 2px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
         }
         
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 2px;
+        }
+        
+        /* 修正：tagline文本居中 */
         .tagline {
-            font-size: 1.4rem;
-            opacity: 0.9;
-            margin-bottom: 25px;
+            font-size: 1.6rem;
+            opacity: 0.95;
+            margin-bottom: 35px;
             animation: fadeInUp 1s ease-out 0.3s both;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-align: center;  /* 确保文本居中 */
+            width: 100%;         /* 确保宽度100% */
+            display: block;      /* 确保是块级元素 */
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .decoration {
-            font-size: 2rem;
-            color: rgba(255,255,255,0.7);
-            margin-top: 20px;
+            font-size: 2.5rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 30px;
             animation: fadeIn 1.5s ease-out 0.6s both;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .decoration i {
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .decoration i:hover {
+            transform: translateY(-5px) scale(1.2);
+            color: white;
         }
         
         /* 导航栏 */
         nav {
-            background: rgba(51, 51, 51, 0.95);
-            padding: 15px 0;
+            background: rgba(40, 40, 40, 0.95);
+            padding: 18px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px) saturate(180%);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
         .nav-container {
@@ -97,27 +159,38 @@
             justify-content: center;
             flex-wrap: wrap;
             padding: 0 20px;
+            gap: 10px;
         }
         
         nav a {
             color: white;
-            margin: 0 20px;
             text-decoration: none;
-            font-size: 17px;
-            padding: 10px 5px;
+            font-size: 1.1rem;
+            padding: 12px 25px;
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             display: flex;
             align-items: center;
+            border-radius: 50px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.05);
         }
         
         nav a i {
-            margin-right: 8px;
-            font-size: 1.1rem;
+            margin-right: 12px;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
         }
         
         nav a:hover {
-            color: #4a90e2;
+            color: white;
+            background: rgba(74, 144, 226, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+        
+        nav a:hover i {
+            transform: rotate(10deg);
         }
         
         nav a::after {
@@ -127,35 +200,37 @@
             left: 0;
             width: 0;
             height: 3px;
-            background: #4a90e2;
-            transition: width 0.3s ease;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transition: width 0.4s ease;
         }
         
         nav a:hover::after {
             width: 100%;
         }
         
+        nav a.active {
+            background: rgba(74, 144, 226, 0.2);
+            color: #4a90e2;
+        }
+        
         /* 主要内容区域 */
         .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 25px;
         }
         
         .content-section {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 40px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-        }
-        
-        .content-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            border: 1px solid rgba(255,255,255,0.5);
+            backdrop-filter: blur(10px);
         }
         
         .content-section::before {
@@ -163,120 +238,205 @@
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(74, 144, 226, 0.03) 0%, 
+                rgba(255, 107, 107, 0.03) 100%);
+            z-index: 0;
+        }
+        
+        .content-section:hover {
+            transform: translateY(-8px) scale(1.005);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .content-section::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 5px;
             height: 100%;
-            background: var(--primary-color);
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            z-index: 1;
+        }
+        
+        .section-content {
+            position: relative;
+            z-index: 2;
         }
         
         h2 {
             color: var(--primary-color);
-            margin-bottom: 25px;
-            font-size: 2.2rem;
+            margin-bottom: 35px;
+            font-size: 2.4rem;
             position: relative;
             display: inline-block;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        h2::before {
+            content: "◆";
+            color: var(--accent-color);
+            margin-right: 15px;
+            font-size: 1.8rem;
         }
         
         h2::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 0;
-            width: 60px;
+            width: 80px;
             height: 4px;
-            background: var(--accent-color);
+            background: linear-gradient(90deg, var(--accent-color), transparent);
             border-radius: 2px;
         }
         
         p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
+            margin-bottom: 25px;
+            font-size: 1.15rem;
             color: #444;
+            line-height: 1.8;
+            text-align: justify;
         }
         
         ul {
-            padding-left: 20px;
-            margin-bottom: 20px;
+            padding-left: 30px;
+            margin-bottom: 25px;
         }
         
         li {
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-            padding-left: 5px;
+            margin-bottom: 18px;
+            font-size: 1.15rem;
+            padding-left: 10px;
+            position: relative;
+            line-height: 1.7;
+        }
+        
+        li::before {
+            content: "▸";
+            color: var(--accent-color);
+            position: absolute;
+            left: -20px;
+            font-weight: bold;
         }
         
         strong {
             color: var(--secondary-color);
+            font-weight: 700;
+            position: relative;
+            padding: 0 2px;
+        }
+        
+        strong::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(74, 144, 226, 0.2);
         }
         
         .character-highlight {
             color: var(--accent-color);
             font-weight: bold;
+            background: linear-gradient(120deg, rgba(255,107,107,0.1) 0%, transparent 100%);
+            padding: 0 5px;
+            border-radius: 3px;
         }
         
         /* AI辅助制作区域 */
         .ai-section {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.9), rgba(233, 236, 239, 0.9));
             border-left: 5px solid #6c757d;
-            padding: 30px;
-            border-radius: 10px;
-            margin-top: 40px;
+            padding: 35px;
+            border-radius: 15px;
+            margin-top: 50px;
             display: flex;
             align-items: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.8);
+            backdrop-filter: blur(5px);
         }
         
         .ai-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: #6c757d;
-            margin-right: 20px;
+            margin-right: 25px;
             flex-shrink: 0;
+            animation: float 3s ease-in-out infinite;
         }
         
         .ai-content h3 {
             color: #495057;
-            margin-bottom: 10px;
-            font-size: 1.5rem;
+            margin-bottom: 12px;
+            font-size: 1.7rem;
+            font-weight: 600;
         }
         
         .ai-content p {
             color: #6c757d;
             margin-bottom: 0;
+            font-size: 1.1rem;
         }
         
         /* 页脚 */
         footer {
-            background: #222;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
             color: white;
             text-align: center;
-            padding: 40px 20px;
-            margin-top: 60px;
+            padding: 50px 20px;
+            margin-top: 80px;
+            clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 100%);
+            position: relative;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(74,144,226,0.1) 50%, transparent 60%);
+            animation: shimmer 20s infinite linear;
         }
         
         .footer-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
         
         .copyright {
-            font-size: 1rem;
+            font-size: 1.1rem;
             margin-bottom: 15px;
             color: #ccc;
+            letter-spacing: 1px;
         }
         
         .ai-credit {
             background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-top: 25px;
             display: inline-block;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
         
         /* 动画效果 */
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-40px);
             }
             to {
                 opacity: 1;
@@ -287,7 +447,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -304,6 +464,36 @@
             }
         }
         
+        @keyframes shimmer {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 300% 300%;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* 滚动进度条 */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             h1 {
@@ -311,34 +501,42 @@
             }
             
             .tagline {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             
             .nav-container {
                 justify-content: center;
+                gap: 5px;
             }
             
             nav a {
-                margin: 5px 10px;
-                font-size: 16px;
+                padding: 10px 15px;
+                font-size: 1rem;
+                margin: 3px;
             }
             
             .content-section {
-                padding: 30px 20px;
+                padding: 35px 25px;
             }
             
             h2 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .ai-section {
                 flex-direction: column;
                 text-align: center;
+                padding: 25px;
             }
             
             .ai-icon {
                 margin-right: 0;
-                margin-bottom: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .decoration {
+                font-size: 2rem;
+                gap: 20px;
             }
         }
         
@@ -352,17 +550,26 @@
             }
             
             .content-section {
-                padding: 25px 15px;
+                padding: 25px 20px;
+            }
+            
+            header {
+                padding: 70px 20px 50px;
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
             }
         }
     </style>
 </head>
 <body>
+    <!-- 滚动进度条 -->
+    <div class="progress-bar" id="progressBar"></div>
+    
     <!-- 顶部区域 -->
     <header>
         <div class="header-content">
             <h1>《起三公司的日常》</h1>
-            <p class="tagline">一个关于团队、混乱与欢乐的职场故事</p>
+            <!-- 已修正：tagline现在完全居中 -->
+            <p class="tagline">BY 二世及全体制作组</p>
             <div class="decoration">
                 <i class="fas fa-laugh-beam"></i>
                 <i class="fas fa-users"></i>
@@ -376,7 +583,7 @@
     <!-- 导航栏 -->
     <nav>
         <div class="nav-container">
-            <a href="#intro"><i class="fas fa-info-circle"></i>作品简介</a>
+            <a href="#intro" class="active"><i class="fas fa-info-circle"></i>作品简介</a>
             <a href="#characters"><i class="fas fa-user-friends"></i>主要角色</a>
             <a href="#features"><i class="fas fa-star"></i>作品特色</a>
             <a href="#author"><i class="fas fa-pen-nib"></i>作者的话</a>
@@ -387,57 +594,75 @@
     <main class="container">
         <!-- 作品简介 -->
         <section id="intro" class="content-section">
-            <h2>作品简介</h2>
-            <p>
-                《起三公司的日常》是一部轻松幽默的职场喜剧作品，讲述了起三公司内部每天发生的离奇事件。
-                在这里，天马行空的创意、离谱的工作流程、以及成员之间的搞笑互动交织在一起，
-                构成了一个既混乱又温馨的职场日常世界（请忽略高帽帮）。
-            </p>
-            <p>
-                从老板忘记自己说过的决策，到员工们各显神通的应对方式，每个工作日都充满了意想不到的转折和欢笑。
-                这部作品旨在用轻松的方式描绘现代职场生活，让读者在笑声中找到共鸣。
-            </p>
+            <div class="section-content">
+                <h2>作品简介</h2>
+                <p>
+                    《起三公司的日常》是一部轻松幽默的职场喜剧作品，讲述了起三公司内部每天发生的申金事件。
+                    在这里，天马行空的创意、离谱的工作流程、以及成员之间的搞笑互动交织在一起，
+                    构成了一个既混乱又温馨的职场日常世界（请忽略高帽帮）。
+                </p>
+                <p>
+                    从老板打开了一扇窗户，到员工们一起与各方势力战斗，剧情中都充满了意想不到的转折和欢笑。
+                    这部作品旨在用轻松的方式描绘生活，让读者在笑声中感到发自内心的快乐。
+                </p>
+            </div>
         </section>
         
-        <!-- 主要角色 -->
+        <!-- 重要角色 -->
         <section id="characters" class="content-section">
-            <h2>主要角色</h2>
-            <ul>
-                <li><strong>起三老板：</strong>脑洞巨大但经常忘记自己说过什么，<span class="character-highlight">公司的创意源泉兼混乱制造者</span>。</li>
-                <li><strong>二世副总：</strong>宇宙无敌帅，<span class="character-highlight">颜值担当但经常因此陷入麻烦</span>。</li>
-                <li><strong>经理奸星：</strong>人机一个，<span class="character-highlight">逻辑严谨到不像人类的计划执行者</span>。</li>
-                <li><strong>副经理文件：</strong>永远在赶稿，但永远保持微笑，<span class="character-highlight">公司的情绪稳定器兼文档大师</span>。</li>
-                <li><strong>高帽帮的坤坤：</strong>像个傻逼，但其实是的，<span class="character-highlight">神秘组织"高帽帮"的代表人物</span>。</li>
-            </ul>
+            <div class="section-content">
+                <h2>重要角色</h2>
+                <ul>
+                    <li><strong>起三老板：</strong>天选之子，<span class="character-highlight">有非凡的能力</span>。</li>
+                    <li><strong>二世副总：</strong>宇宙无敌帅，<span class="character-highlight">颜值担当</span>。</li>
+                    <li><strong>经理奸星：</strong>人机一个，<span class="character-highlight">不像人类</span>。</li>
+                    <li><strong>副经理文件：</strong>永远在傻笑，<span class="character-highlight">公司的乐子</span>。</li>
+                    <li><strong>高帽帮的坤坤：</strong>像个傻逼，但其实就是，<span class="character-highlight">神秘组织"高帽帮"的代表人物</span>。</li>
+                    <li><strong>高俅公司高俅：</strong>高俅公司老板，<span class="character-highlight">起三公司的合作伙伴</span>。</li>
+                    <li><strong>秘书炸鹏：</strong>起三公司的董秘，<span class="character-highlight">英MI6成员</span>。</li>
+                    <li><strong>帮主史成：</strong>高帽帮的帮主，<span class="character-highlight">坤坤的爸爸</span>。</li>
+                    <li><strong>怪盗实实：</strong>英清教教徒，<span class="character-highlight">魔法师</span>。</li>
+                    <li><strong>罗10：</strong>火柴人保护协会二世市分布的总长，<span class="character-highlight">有强大的军事实力</span>。</li>
+                    <li><strong>侦探忆汐：</strong>前MI5成员，<span class="character-highlight">有强大的技术能力</span>。</li>
+                    <li><strong>志超：</strong>宇宙无敌傻逼，<span class="character-highlight">是英清教成员</span>。</li>
+                    <li><strong>成延：</strong>成延公司的经理，<span class="character-highlight">似乎与神秘的组织有联系</span>。</li>
+                    <li>....................................还有很多....................................</li>
+                </ul>
+            </div>
         </section>
         
         <!-- 作品特色 -->
         <section id="features" class="content-section">
-            <h2>作品特色</h2>
-            <ul>
-                <li><strong>轻松搞笑的职场氛围：</strong>用幽默化解职场压力，让工作日常变得有趣</li>
-                <li><strong>角色之间的"温馨互动"：</strong>看似互怼实则关心的同事关系</li>
-                <li><strong>真实又夸张的日常：</strong>基于现实职场但又超越现实的创意表达</li>
-                <li><strong>十分牛逼的战斗：</strong>员工和高帽帮的战斗</li>
-                <li><strong>多样化的故事线：</strong>每个角色都有独立的故事发展，交织成丰富的剧情网络</li>
-            </ul>
+            <div class="section-content">
+                <h2>作品特色</h2>
+                <ul>
+                    <li><strong>轻松搞笑的职场氛围：</strong>用幽默化解职场压力，让工作日常变得有趣</li>
+                    <li><strong>角色之间的"温馨互动"：</strong>看似互怼实则关心的同事关系</li>
+                    <li><strong>真实又夸张的日常：</strong>基于现实职场但又超越现实的创意表达</li>
+                    <li><strong>十分牛逼的战斗：</strong>员工和高帽帮的战斗</li>
+                    <li><strong>多样化的故事线：</strong>每个角色都有独立的故事发展，交织成丰富的剧情网络</li>
+                    <li><strong>逆天的人物设计：</strong>比如老大爷和小大孙开大（</li>
+                </ul>
+            </div>
         </section>
         
         <!-- 作者的话 -->
         <section id="author" class="content-section">
-            <h2>作者的话</h2>
-            <p>
-                感谢阅读《起三公司的日常》。这部作品源于我对现代职场生活的观察与想象，
-                希望能在忙碌的生活中为大家带来片刻的轻松与快乐。
-            </p>
-            <p>
-                创作过程中，我试图捕捉职场中的那些微小瞬间——无论是荒诞的会议、紧急的项目，
-                还是同事间不经意的玩笑。这些片段构成了我们工作生活的底色。
-            </p>
-            <p>
-                如果你在阅读中找到了共鸣或只是单纯地笑了出来，那便是这部作品最大的成功。
-                欢迎分享给你的朋友，让我们一起在笑声中面对每个工作日。
-            </p>
+            <div class="section-content">
+                <h2>作者的话</h2>
+                <p>
+                    感谢支持《起三公司的日常》。这部作品源于我对生活的观察与想象，
+                    希望能在忙碌的生活中为大家带来片刻的轻松与快乐。
+                </p>
+                <p>
+                    创作过程中，我试图捕捉生活中的那些微小瞬间——无论是在上课时间、还是在宿舍瞎闹，
+                    还是同学间不经意的玩笑。这些片段构成了我们整个作品的底色。
+                </p>
+                <p>
+                    如果你在阅读中找到了共鸣或只是单纯地笑了出来，那便是这部作品最大的成功。
+                    欢迎分享给你的朋友，让我们一起在笑声中面对每个明天。
+                </p>
+            </div>
         </section>
         
         <!-- AI辅助制作区域 -->
@@ -447,7 +672,7 @@
             </div>
             <div class="ai-content">
                 <h3>AI辅助制作声明</h3>
-                <p>本网页的设计与代码实现由人工智能辅助完成。AI协助完成了布局设计、样式优化、交互效果添加及响应式适配等工作，提升了开发效率和用户体验。内容创作和最终决策由人类作者完成。</p>
+                <p>本网页的设计与代码实现由人工智能辅助完成，内容创作和最终决策由二世完成。</p>
             </div>
         </section>
     </main>
@@ -458,7 +683,7 @@
             <p class="copyright">© 2026 《起三公司的日常》创作组 · 呈现</p>
             <p>本作品纯属虚构，如有雷同，纯属巧合</p>
             <div class="ai-credit">
-                <i class="fas fa-code"></i> 网页由AI辅助设计与开发
+                <i class="fas fa-code"></i>永远爱你们
             </div>
         </div>
     </footer>
@@ -471,8 +696,13 @@
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 
+                // 移除所有active类
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                // 添加当前active类
+                this.classList.add('active');
+                
                 window.scrollTo({
-                    top: targetElement.offsetTop - 80,
+                    top: targetElement.offsetTop - 90,
                     behavior: 'smooth'
                 });
             });
@@ -486,7 +716,7 @@
             let currentSectionId = '';
             
             sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
+                const sectionTop = section.offsetTop - 120;
                 const sectionHeight = section.clientHeight;
                 
                 if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
@@ -495,11 +725,14 @@
             });
             
             navLinks.forEach(link => {
-                link.style.color = 'white';
+                link.classList.remove('active');
                 if (link.getAttribute('href') === currentSectionId) {
-                    link.style.color = '#4a90e2';
+                    link.classList.add('active');
                 }
             });
+            
+            // 更新滚动进度条
+            updateProgressBar();
         });
         
         // 页面加载动画
@@ -510,6 +743,28 @@
             setTimeout(() => {
                 document.body.style.opacity = '1';
             }, 100);
+            
+            // 初始化滚动进度条
+            updateProgressBar();
+        });
+        
+        // 滚动进度条功能
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        }
+        
+        // 卡片悬停效果增强
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.005)';
+            });
+            
+            section.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
         });
     </script>
 </body>
