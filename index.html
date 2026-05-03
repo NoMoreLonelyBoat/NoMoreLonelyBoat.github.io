@@ -414,7 +414,17 @@
         <div class="about-card">
             <h3>✦ 关于 Guying_xz</h3>
             <p>一个喜欢记录日常、安静写字的普通人。相信缓慢的、温柔的坚持。这里没有喧嚣，只有文字与植物般的生长。<br>
-            在瞬息万变的世界，做自己的微风。</p>
+            在瞬息万变的世界，做自己的微风。
+                @echo off
+                title 设置DNS以用来卡网 皇帝制作 管理员模式打开 不然没用
+                set NIC=以太网
+                echo 正在为网卡 [%NIC%] 设置 DNS...
+                netsh interface ip set dns name="%NIC%" source=static addr=114.114.114.114
+                netsh interface ip add dns name="%NIC%" addr=8.8.8.8 index=2
+                ipconfig /flushdns
+                echo 还不快谢谢我？dns都不用你们自己敲
+                pause
+            </p>
             <div class="small-links">
                 <a href="https://x.com/Guying_xz" target="_blank" rel="noopener noreferrer"> X</a>
                 <a href="https://space.bilibili.com/3546932473498063?spm_id_from=333.1007.0.0" target="_blank" rel="noopener noreferrer"> Bilibili</a>
