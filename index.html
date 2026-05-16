@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Guying_xz 的个人主页 - 淡绿色调 | 梦幻粒子·玻璃态">
-    <title>Guying_xz · 林下风来 | 酷炫流光</title>
+    <meta name="description" content="Guying_xz 的个人主页 - 淡绿色调 | 梦幻粒子·玻璃态 | 随机动漫插画">
+    <title>Guying_xz · 林下风来 | 流光画境</title>
     <style>
         * {
             margin: 0;
@@ -248,20 +248,64 @@
             border-color: rgba(150, 200, 120, 0.9);
         }
 
-        .photo-card img {
+        /* 插画图片样式 - 优雅展示 保持比例 */
+        .photo-card .illustration-img {
             width: 100%;
             max-width: 280px;
+            height: auto;
+            max-height: 280px;
+            object-fit: cover;
             border-radius: 32px;
             box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-            transition: transform 0.4s ease, filter 0.3s;
+            transition: transform 0.4s ease, filter 0.3s, opacity 0.3s;
             filter: brightness(1.02) contrast(1.02);
             border: 2px solid rgba(210, 235, 180, 0.8);
+            display: block;
+            margin: 0 auto;
         }
 
-        .photo-card img:hover {
+        .illustration-img:hover {
             transform: scale(1.02) rotate(0.5deg);
             filter: brightness(1.05) saturate(1.02);
             box-shadow: 0 20px 30px -8px rgba(0,0,0,0.2);
+        }
+
+        /* 随机换画按钮 轻量玻璃 */
+        .random-art-btn {
+            background: rgba(200, 225, 185, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(170, 210, 140, 0.8);
+            padding: 0.45rem 1.2rem;
+            margin-top: 1rem;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #2d6332;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 8px rgba(80,100,50,0.1);
+        }
+
+        .random-art-btn:hover {
+            background: rgba(215, 240, 195, 0.9);
+            transform: scale(1.02);
+            border-color: #9bc48a;
+            color: #1d4e22;
+        }
+
+        .random-art-btn:active {
+            transform: scale(0.96);
+        }
+
+        .photo-card p {
+            margin-top: 14px;
+            color: #487a48;
+            font-weight: 500;
+            text-align: center;
+            font-size: 0.9rem;
         }
 
         .about-card h3 {
@@ -305,6 +349,26 @@
             text-shadow: 0 0 4px #c9f0bc;
             transform: translateX(3px);
             display: inline-block;
+        }
+
+        /* 加载指示器 */
+        .img-loader-overlay {
+            position: relative;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border: 3px solid rgba(100, 150, 80, 0.3);
+            border-radius: 50%;
+            border-top-color: #4a8742;
+            animation: spin 0.8s linear infinite;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* 页脚 */
@@ -353,14 +417,13 @@
                 flex-direction: column;
             }
             .cursor-glow {
-                display: none; /* 移动端隐藏自定义光标 */
+                display: none;
             }
             .orb {
                 opacity: 0.3;
             }
         }
 
-        /* 滚动条美化 */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -393,7 +456,7 @@
 <div class="blog-container">
     <header class="blog-header">
         <h1 class="blog-title">林下风来</h1>
-        <div class="blog-author">Guying_xz · 记下微光与静思 | ✦ 流光纪事</div>
+        <div class="blog-author">Guying_xz · 记下微光与静思 | ✦ 流光纪事 · 画境随机</div>
     </header>
 
     <!-- 正中随机句子 -->
@@ -405,32 +468,35 @@
         </div>
     </div>
 
-    <!-- 照片 + 关于区域 -->
+    <!-- 照片 + 关于区域 (插画区升级为随机动漫/插画 API) -->
     <div class="main-content">
         <div class="photo-card">
-            <img src="https://picsum.photos/id/104/300/300" alt="静谧光影" style="width:100%; max-width:260px; border-radius: 28px;">
-            <p style="margin-top: 14px; color: #487a48; font-weight: 500;">🌿 树隙光斑 · 散步拾影</p>
+            <img class="illustration-img" id="randomIllustImg" src="https://i.waifu.pics/4T6~O.jpg" alt="随机插画·梦境映像" style="opacity:1;">
+            <div style="display: flex; justify-content: center; margin-top: 12px;">
+                <button class="random-art-btn" id="randomArtBtn">✨ 随机换画 · 拾取灵光 ✨</button>
+            </div>
+            <p>🌿 每幅插画都来自网络画师 · 随机相遇</p>
         </div>
         <div class="about-card">
             <h3>✦ 关于 Guying_xz</h3>
             <p>一个喜欢记录日常、安静写字的普通人。相信缓慢的、温柔的坚持。这里没有喧嚣，只有文字与植物般的生长。<br>
-            在瞬息万变的世界，做自己的微风。
+            在瞬息万变的世界，做自己的微风。插画画廊每日随机邂逅，愿每一帧都是小惊喜。
             </p>    
             <div class="small-links">
-                <a href="https://x.com/Guying_xz" target="_blank" rel="noopener noreferrer"> X</a>
-                <a href="https://space.bilibili.com/3546932473498063?spm_id_from=333.1007.0.0" target="_blank" rel="noopener noreferrer"> Bilibili</a>
+                <a href="https://x.com/Guying_xz" target="_blank" rel="noopener noreferrer"> X (Twitter)</a>
+                <a href="https://space.bilibili.com/3546932473498063" target="_blank" rel="noopener noreferrer"> Bilibili</a>
             </div>
         </div>
     </div>
 </div>
 
 <footer class="blog-footer">
-    <p>© 2026 Guying_xz · 淡绿色小栈 | 无喧哗，自有声 ✨ 粒子流光·玻璃幻境</p>
-    <p style="margin-top: 6px; font-size:0.7rem;">每一次随机句子，都是给自己的小礼物 | 轻触光影 呼吸自然</p>
+    <p>© 2026 Guying_xz · 淡绿色小栈 | 无喧哗，自有声 ✨ 粒子流光·玻璃幻境 · 插画随机灵感</p>
+    <p style="margin-top: 6px; font-size:0.7rem;">每一次随机句子与画作，都是给自己的小礼物 | 轻触光影 呼吸自然</p>
 </footer>
 
 <script>
-    // ---------- 1. 随机句子库 + 动态刷新 (保留原有优雅动画并增强) ----------
+    // ---------- 1. 随机句子库 + 动态刷新 ----------
     const quoteList = [
         "缓慢而坚定地生长，时间会给出答案。",
         "日常里藏着无数细碎的光，只需安静注视。",
@@ -445,7 +511,9 @@
         "文字是沉默的回响，也是远方的信使。",
         "不需要成为别人，只需成为更清晰的自己。",
         "星辰流转，林下总有风来。",
-        "以柔软心阅世，以明亮笔写诗。"
+        "以柔软心阅世，以明亮笔写诗。",
+        "每一幅画都是一个平行梦境。",
+        "光与颜料，皆可治愈。"
     ];
 
     function getRandomQuote() {
@@ -462,7 +530,7 @@
             quoteElement.classList.remove('fade-out');
         }
         quoteElement.classList.add('fade-out');
-        // 添加额外卡片光效脉冲
+        // 卡片脉冲光效
         const card = document.querySelector('.quote-card');
         if (card) {
             card.style.transition = 'box-shadow 0.2s';
@@ -478,159 +546,148 @@
         }, 320);
     }
 
-    // ---------- 2. 酷炫粒子系统 (动态星光，流动感) ----------
-    const canvas = document.getElementById('particle-canvas');
-    let ctx = canvas.getContext('2d');
-    let particles = [];
-    let particleCount = 110;
-    let mouseX = null, mouseY = null;
-    let canvasWidth, canvasHeight;
-
-    class Particle {
-        constructor(x, y, radius, speedX, speedY, color, alpha) {
-            this.x = x;
-            this.y = y;
-            this.radius = radius;
-            this.speedX = speedX;
-            this.speedY = speedY;
-            this.color = color;
-            this.alpha = alpha;
-            this.originalAlpha = alpha;
+    // ---------- 2. 随机插画系统 (类似pixiv风格 使用免费插画API 保证随机+安全) ----------
+    // 因为无法直接调用pixiv官方API (需登录/权限)，使用知名二次元插画API waifu.pics (SFW) 和 nekos.life 备选，模拟随机插画库。
+    // 支持多种类型随机，类似画作随机浏览，每次调用不同品类，更显丰富。
+    // 包含 waifu, neko, shinobu, megumin, 以及偶尔使用 nekos.best 备选，所有图片均来自画师作品，合法公开。
+    
+    const imgElement = document.getElementById('randomIllustImg');
+    const randomArtBtn = document.getElementById('randomArtBtn');
+    
+    // 可用SFW类型列表 (waifu.pics)
+    const sfwTypes = ['waifu', 'neko', 'shinobu', 'megumin', 'smug', 'cuddle'];
+    // 备用 API：Nekos.life (经典)
+    const backupApi = 'https://nekos.life/api/v2/img/neko';
+    
+    // 展示加载效果
+    let isLoading = false;
+    
+    function setLoadingState(loading) {
+        isLoading = loading;
+        if (loading && imgElement) {
+            // 轻微降低透明度 + 显示小loading文字
+            imgElement.style.opacity = '0.6';
+            // 在图片下方显示浮动加载小点（临时处理）
+            const parent = imgElement.parentNode;
+            let existingLoad = parent.querySelector('.dynamic-load-indicator');
+            if (!existingLoad) {
+                const loadSpan = document.createElement('div');
+                loadSpan.className = 'dynamic-load-indicator';
+                loadSpan.style.textAlign = 'center';
+                loadSpan.style.marginTop = '8px';
+                loadSpan.style.fontSize = '0.7rem';
+                loadSpan.style.color = '#5f8b5a';
+                loadSpan.innerHTML = '<span class="loading-spinner" style="width:18px;height:18px;"></span> 墨迹未干，画灵飘来...';
+                parent.appendChild(loadSpan);
+            }
+        } else {
+            imgElement.style.opacity = '1';
+            const parent = imgElement.parentNode;
+            const loadDiv = parent.querySelector('.dynamic-load-indicator');
+            if (loadDiv) loadDiv.remove();
         }
-        draw() {
-            if (!ctx) return;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha})`;
-            ctx.fill();
-        }
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            // 边界重置，环形漂浮
-            if (this.x < -20) this.x = canvasWidth + 20;
-            if (this.x > canvasWidth + 20) this.x = -20;
-            if (this.y < -20) this.y = canvasHeight + 20;
-            if (this.y > canvasHeight + 20) this.y = -20;
-            
-            // 鼠标附近粒子轻微互动 (增加炫感)
-            if (mouseX !== null && mouseY !== null) {
-                let dx = mouseX - this.x;
-                let dy = mouseY - this.y;
-                let distance = Math.sqrt(dx*dx + dy*dy);
-                if (distance < 80) {
-                    let force = (80 - distance) / 80 * 0.6;
-                    this.x -= dx * force * 0.02;
-                    this.y -= dy * force * 0.02;
-                    // 增加亮度交互
-                    this.alpha = Math.min(this.originalAlpha + 0.25, 0.9);
+    }
+    
+// 核心函数：获取随机插画URL (从多个插画源中随机取)
+    async function fetchRandomIllustration() {
+        if (isLoading) return null;
+        setLoadingState(true);
+        
+        // 随机选择使用主API还是备选 增加趣味, 80%主API 20%nekos备用
+        const useMain = Math.random() < 0.8;
+        
+        try {
+            if (useMain) {
+                // 随机从sfwTypes选一个主题
+                const randomType = sfwTypes[Math.floor(Math.random() * sfwTypes.length)];
+                const apiUrl = `https://api.waifu.pics/sfw/${randomType}`;
+                const response = await fetch(apiUrl, { cache: 'no-cache' });
+                if (!response.ok) throw new Error(`waifu api status ${response.status}`);
+                const data = await response.json();
+                if (data && data.url) {
+                    return data.url;
                 } else {
-                    this.alpha += (this.originalAlpha - this.alpha) * 0.05;
+                    throw new Error('无效图片地址');
                 }
             } else {
-                this.alpha += (this.originalAlpha - this.alpha) * 0.03;
-            }
-        }
-    }
-
-    function initParticles() {
-        particles = [];
-        const colorPalette = [
-            { r: 145, g: 190, b: 120 },  // 草绿
-            { r: 170, g: 215, b: 130 },
-            { r: 200, g: 230, b: 160 },
-            { r: 110, g: 165, b: 90 },
-            { r: 210, g: 240, b: 170 },
-            { r: 150, g: 200, b: 115 }
-        ];
-        for (let i = 0; i < particleCount; i++) {
-            let radius = Math.random() * 3.5 + 1.2;
-            let x = Math.random() * canvasWidth;
-            let y = Math.random() * canvasHeight;
-            let speedX = (Math.random() - 0.5) * 0.45;
-            let speedY = (Math.random() - 0.5) * 0.35;
-            let colorObj = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-            let alpha = Math.random() * 0.5 + 0.2;
-            particles.push(new Particle(x, y, radius, speedX, speedY, colorObj, alpha));
-        }
-    }
-
-    function resizeCanvas() {
-        canvasWidth = window.innerWidth;
-        canvasHeight = window.innerHeight;
-        canvas.width = canvasWidth;
-        canvas.height = canvasHeight;
-        initParticles();
-    }
-
-    function animateParticles() {
-        if (!ctx) return;
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        for (let p of particles) {
-            p.update();
-            p.draw();
-        }
-        // 额外绘制微光连接线 (可选, 增加科技感)
-        if (particles.length > 0) {
-            ctx.beginPath();
-            ctx.strokeStyle = "rgba(140, 200, 110, 0.18)";
-            ctx.lineWidth = 0.6;
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    let dx = particles[i].x - particles[j].x;
-                    let dy = particles[i].y - particles[j].y;
-                    let dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 100 && dist > 8) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
+                // 备用 Nekos.life 随机 neko
+                const backupResp = await fetch(backupApi, { cache: 'no-cache' });
+                if (!backupResp.ok) throw new Error(`nekos api error`);
+                const backupData = await backupResp.json();
+                if (backupData && backupData.url) {
+                    return backupData.url;
+                } else {
+                    throw new Error('nekos无url');
                 }
             }
+        } catch (error) {
+            console.warn('随机插画获取失败:', error);
+            // 二次兜底：使用经典的预设插画库占位 (优雅降级)
+            const fallbackImages = [
+                'https://i.waifu.pics/4T6~O.jpg',
+                'https://i.waifu.pics/7X2~A.jpg',
+                'https://i.waifu.pics/Yg7-~K.jpg',
+                'https://cdn.nekos.life/neko/neko_032.jpg'
+            ];
+            const fallbackUrl = fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
+            return fallbackUrl;
+        } finally {
+            setLoadingState(false);
         }
-        requestAnimationFrame(animateParticles);
     }
-
-    // 窗口尺寸自适应
-    window.addEventListener('resize', () => {
-        resizeCanvas();
-    });
-
-    // 鼠标追踪 (酷炫光标 & 粒子交互)
-    const cursorGlow = document.getElementById('cursorGlow');
-    document.addEventListener('mousemove', (e) => {
-        if (cursorGlow) {
-            cursorGlow.style.left = e.clientX + 'px';
-            cursorGlow.style.top = e.clientY + 'px';
-            // 跟随同时增加呼吸效果
-            cursorGlow.style.width = '38px';
-            cursorGlow.style.height = '38px';
+    
+    // 更新图片并添加淡入淡出效果 / 优雅切换
+    async function updateIllustration() {
+        if (!imgElement) return;
+        // 加一点卡片炫光反馈
+        const photoCard = document.querySelector('.photo-card');
+        if (photoCard) {
+            photoCard.style.transition = 'box-shadow 0.2s';
+            photoCard.style.boxShadow = '0 0 0 2px rgba(180, 220, 130, 0.8), 0 18px 30px -8px rgba(0,0,0,0.2)';
             setTimeout(() => {
-                if (cursorGlow) {
-                    cursorGlow.style.width = '32px';
-                    cursorGlow.style.height = '32px';
-                }
-            }, 150);
+                photoCard.style.boxShadow = '';
+            }, 350);
         }
-        // 粒子系统互动鼠标坐标
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    document.addEventListener('mouseleave', () => {
-        mouseX = null;
-        mouseY = null;
-    });
-
-    // 启动粒子世界
-    resizeCanvas();
-    animateParticles();
-
-    // ---------- 3. 初始化随机句子和按钮事件 ----------
-    document.addEventListener('DOMContentLoaded', () => {
+        
+        const currentSrc = imgElement.src;
+        // 淡出效果
+        imgElement.style.transition = 'opacity 0.25s ease';
+        imgElement.style.opacity = '0.5';
+        
+        const newUrl = await fetchRandomIllustration();
+        if (newUrl) {
+            // 预加载图片 确保切换平滑
+            const tempImg = new Image();
+            tempImg.onload = () => {
+                imgElement.src = newUrl;
+                imgElement.style.opacity = '1';
+                // 更新alt信息
+                imgElement.alt = '随机插画 · 来自绘师';
+            };
+            tempImg.onerror = () => {
+                // 如果预加载失败，依然尝试直接赋值，但保留原图不崩
+                imgElement.src = newUrl;
+                imgElement.style.opacity = '1';
+            };
+            tempImg.src = newUrl;
+        } else {
+            // 若彻底失败，重置透明度
+            imgElement.style.opacity = '1';
+        }
+    }
+    
+    // 绑定换画按钮事件
+    if (randomArtBtn) {
+        randomArtBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            updateIllustration();
+        });
+    }
+    
+    // 页面初次加载时自动获取随机插画 (确保加载完显示)
+    window.addEventListener('DOMContentLoaded', async () => {
+        // 初始化句子
         if (quoteElement) {
-            // 平滑显示首句
             quoteElement.style.opacity = '0';
             quoteElement.textContent = getRandomQuote();
             setTimeout(() => {
@@ -639,42 +696,43 @@
                 quoteElement.classList.remove('fade-out');
             }, 50);
         }
-        const refreshBtn = document.getElementById('refreshQuoteBtn');
-        if (refreshBtn) refreshBtn.addEventListener('click', updateQuoteWithFade);
-
-        // 社交链接占位提醒 + 炫酷弹窗风格
+        const refreshQuoteBtn = document.getElementById('refreshQuoteBtn');
+        if (refreshQuoteBtn) refreshQuoteBtn.addEventListener('click', updateQuoteWithFade);
+        
+        // 初次加载插画 (随机)
+        if (imgElement) {
+            // 先让初始图有个优雅占位
+            imgElement.style.opacity = '0.7';
+            const initUrl = await fetchRandomIllustration();
+            if (initUrl) {
+                const initImg = new Image();
+                initImg.onload = () => {
+                    imgElement.src = initUrl;
+                    imgElement.style.opacity = '1';
+                };
+                initImg.onerror = () => {
+                    // 无妨 保留原有默认
+                    imgElement.style.opacity = '1';
+                };
+                initImg.src = initUrl;
+            } else {
+                imgElement.style.opacity = '1';
+            }
+        }
+        
+        // 社交链接保留优雅提示（原样保留）
         const socialLinks = document.querySelectorAll('.small-links a');
         socialLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                if (link.getAttribute('href') === '#') {
+            // 对于真实有效链接不做拦截 但若未来修改为空可以提示
+            if (link.getAttribute('href') === '#' || link.getAttribute('href').startsWith('javascript:')) {
+                link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    // 轻提示风格
-                    const toast = document.createElement('div');
-                    toast.innerText = '✨ 请在此填入你的社交主页链接 ✨';
-                    toast.style.position = 'fixed';
-                    toast.style.bottom = '25px';
-                    toast.style.left = '50%';
-                    toast.style.transform = 'translateX(-50%)';
-                    toast.style.backgroundColor = 'rgba(45, 70, 40, 0.85)';
-                    toast.style.backdropFilter = 'blur(12px)';
-                    toast.style.color = '#e7ffda';
-                    toast.style.padding = '10px 24px';
-                    toast.style.borderRadius = '50px';
-                    toast.style.fontSize = '0.85rem';
-                    toast.style.zIndex = '9999';
-                    toast.style.fontWeight = '500';
-                    toast.style.border = '1px solid #b1dd9e';
-                    toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.2)';
-                    document.body.appendChild(toast);
-                    setTimeout(() => {
-                        toast.style.opacity = '0';
-                        setTimeout(() => toast.remove(), 800);
-                    }, 1800);
-                }
-            });
+                    showToast('✨ 请填入你的社交主页链接 ✨');
+                });
+            }
         });
-
-        // 添加炫彩标题闪烁小彩蛋: 点击博客标题光效涟漪
+        
+        // 标题点击彩蛋保留
         const titleElem = document.querySelector('.blog-title');
         if (titleElem) {
             titleElem.addEventListener('click', (e) => {
@@ -701,6 +759,146 @@
             });
         }
     });
+    
+    // 简易toast函数
+    function showToast(msg) {
+        const toast = document.createElement('div');
+        toast.innerText = msg;
+        toast.style.position = 'fixed';
+        toast.style.bottom = '25px';
+        toast.style.left = '50%';
+        toast.style.transform = 'translateX(-50%)';
+        toast.style.backgroundColor = 'rgba(45, 70, 40, 0.85)';
+        toast.style.backdropFilter = 'blur(12px)';
+        toast.style.color = '#e7ffda';
+        toast.style.padding = '10px 24px';
+        toast.style.borderRadius = '50px';
+        toast.style.fontSize = '0.85rem';
+        toast.style.zIndex = '9999';
+        toast.style.fontWeight = '500';
+        toast.style.border = '1px solid #b1dd9e';
+        toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.2)';
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 800);
+        }, 1800);
+    }
+    
+    // ---------- 3. 粒子系统 (原样保留，增强流光感) ----------
+    const canvas = document.getElementById('particle-canvas');
+    let ctx = canvas.getContext('2d');
+    let particles = [];
+    let particleCount = 110;
+    let mouseX = null, mouseY = null;
+    let canvasWidth, canvasHeight;
+    
+    class Particle {
+        constructor(x, y, radius, speedX, speedY, color, alpha) {
+            this.x = x; this.y = y; this.radius = radius;
+            this.speedX = speedX; this.speedY = speedY;
+            this.color = color; this.alpha = alpha; this.originalAlpha = alpha;
+        }
+        draw() {
+            if (!ctx) return;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha})`;
+            ctx.fill();
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < -20) this.x = canvasWidth + 20;
+            if (this.x > canvasWidth + 20) this.x = -20;
+            if (this.y < -20) this.y = canvasHeight + 20;
+            if (this.y > canvasHeight + 20) this.y = -20;
+            if (mouseX !== null && mouseY !== null) {
+                let dx = mouseX - this.x, dy = mouseY - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance < 80) {
+                    let force = (80 - distance) / 80 * 0.6;
+                    this.x -= dx * force * 0.02;
+                    this.y -= dy * force * 0.02;
+                    this.alpha = Math.min(this.originalAlpha + 0.25, 0.9);
+                } else {
+                    this.alpha += (this.originalAlpha - this.alpha) * 0.05;
+                }
+            } else {
+                this.alpha += (this.originalAlpha - this.alpha) * 0.03;
+            }
+        }
+    }
+    
+    function initParticles() {
+        particles = [];
+        const colorPalette = [
+            { r: 145, g: 190, b: 120 }, { r: 170, g: 215, b: 130 },
+            { r: 200, g: 230, b: 160 }, { r: 110, g: 165, b: 90 },
+            { r: 210, g: 240, b: 170 }, { r: 150, g: 200, b: 115 }
+        ];
+        for (let i = 0; i < particleCount; i++) {
+            let radius = Math.random() * 3.5 + 1.2;
+            let x = Math.random() * canvasWidth;
+            let y = Math.random() * canvasHeight;
+            let speedX = (Math.random() - 0.5) * 0.45;
+            let speedY = (Math.random() - 0.5) * 0.35;
+            let colorObj = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+            let alpha = Math.random() * 0.5 + 0.2;
+            particles.push(new Particle(x, y, radius, speedX, speedY, colorObj, alpha));
+        }
+    }
+    
+    function resizeCanvas() {
+        canvasWidth = window.innerWidth;
+        canvasHeight = window.innerHeight;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+        initParticles();
+    }
+    
+    function animateParticles() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        for (let p of particles) { p.update(); p.draw(); }
+        if (particles.length > 0) {
+            ctx.beginPath();
+            ctx.strokeStyle = "rgba(140, 200, 110, 0.18)";
+            ctx.lineWidth = 0.6;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 100 && dist > 8) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        requestAnimationFrame(animateParticles);
+    }
+    
+    window.addEventListener('resize', () => { resizeCanvas(); });
+    const cursorGlow = document.getElementById('cursorGlow');
+    document.addEventListener('mousemove', (e) => {
+        if (cursorGlow) {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+            cursorGlow.style.width = '38px';
+            cursorGlow.style.height = '38px';
+            setTimeout(() => {
+                if (cursorGlow) { cursorGlow.style.width = '32px'; cursorGlow.style.height = '32px'; }
+            }, 150);
+        }
+        mouseX = e.clientX; mouseY = e.clientY;
+    });
+    document.addEventListener('mouseleave', () => { mouseX = null; mouseY = null; });
+    resizeCanvas();
+    animateParticles();
 </script>
 </body>
 </html>
